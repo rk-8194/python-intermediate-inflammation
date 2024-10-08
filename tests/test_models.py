@@ -20,8 +20,7 @@ def test_daily_mean_zeros():
 
 
 def test_daily_mean_integers():
-    """Test that mean function works for an array of positive integers."""
-    
+    """Test that mean function works for an array of positive integers."""   
     test_input = np.array([[1, 2],
                            [3, 4],
                            [5, 6]])
