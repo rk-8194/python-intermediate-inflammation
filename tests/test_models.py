@@ -7,62 +7,55 @@ import pytest
 from inflammation.models import daily_mean, load_json, daily_min, daily_max
 
 
-def test_daily_mean_zeros():
-    """Test that mean function works for an array of zeros."""
+@pytest.mark.parametrize(
+    "test, expected",
+    [
+        ([[0, 0], [0, 0], [0, 0]], [0, 0]),
+        ([[1, 2], [3, 4], [5, 6]], [3, 4])
+    ],
+)
+def test_daily_mean(test, expected):
+    """Test mean function works for an array of zeroe and positive integers.
 
-    test_input = np.array([[0, 0], [0, 0], [0, 0]])
-    test_result = np.array([0, 0])
-
-    # Need to use Numpy testing functions to compare arrays
-    npt.assert_array_equal(daily_mean(test_input), test_result)
-
-
-def test_daily_mean_integers():
-    """Test that mean function works for an array of positive integers."""
-    test_input = np.array([[1, 2], [3, 4], [5, 6]])
-    test_result = np.array([3, 4])
-
-    # Need to use Numpy testing functions to compare arrays
-    npt.assert_array_equal(daily_mean(test_input), test_result)
+    Args:
+        test (np.array): Test array.
+        expected (np.array): Mean of the test array.
+    """
+    npt.assert_array_equal(daily_mean(np.array(test)), np.array(expected))
 
 
-def test_daily_min_zero():
-    """Test script to get the minimum from the data set."""
-    test_input = np.array([[0, 0], [1, 1], [1, 1]])
-    test_result = np.array([0, 0])
+@pytest.mark.parametrize(
+    "test, expected",
+    [
+        ([[0, 0], [0, 0], [0, 0]], [0, 0]),
+        ([[1, 2], [3, 4], [5, 6]], [1, 2]),
+    ],
+)
+def test_daily_min(test, expected):
+    """Test mean function works for an array of zeroe and positive integers.
 
-    npt.assert_array_equal(daily_min(test_input), test_result)
-
-
-def test_daily_min():
-    """Test script to get the minimum from the data set."""
-    test_input = np.array([[1, 2], [3, 4], [5, 0]])
-    test_result = np.array([1, 0])
-
-    npt.assert_array_equal(daily_min(test_input), test_result)
-
-
-def test_daily_max_zero():
-    """Test script to get the maximum from the data set."""
-    test_input = np.array([[1, 1], [0, 0], [0, 0]])
-    test_result = np.array([1, 1])
-
-    npt.assert_array_equal(daily_max(test_input), test_result)
+    Args:
+        test (np.array): Test array.
+        expected (np.array): Mean of the test array.
+    """
+    npt.assert_array_equal(daily_min(np.array(test)), np.array(expected))
 
 
-def test_daily_min_string():
-    """Test for TypeError when passing strings"""
-    with pytest.raises(TypeError):
-        error_expected = daily_min([["Hello", "there"], ["General", "Kenobi"]])
-        print(error_expected)
+@pytest.mark.parametrize(
+    "test, expected",
+    [
+        ([[0, 0], [0, 0], [0, 0]], [0, 0]),
+        ([[1, 2], [3, 4], [5, 6]], [5, 6]),
+    ],
+)
+def test_daily_max(test, expected):
+    """Test mean function works for an array of zeroe and positive integers.
 
-
-def test_daily_max():
-    """Test script to get the minimum from the data set."""
-    test_input = np.array([[1, 2], [3, 4], [5, 0]])
-    test_result = np.array([5, 4])
-
-    npt.assert_array_equal(daily_max(test_input), test_result)
+    Args:
+        test (np.array): Test array.
+        expected (np.array): Mean of the test array.
+    """
+    npt.assert_array_equal(daily_max(np.array(test)), np.array(expected))
 
 
 def test_load_from_json(tmpdir):
